@@ -25,25 +25,31 @@ public class MainActivity extends AppCompatActivity
         Usuario meli = new Usuario(2, "Melissa", 23, "Nada");
         Usuario conocido = new Usuario(3, "Estandar", 25, "estandar@estandar.com");
 
-        List<Usuario> usuarios = new ArrayList<>();
-        usuarios.add(javier);
-        usuarios.add(conocido);
-        usuarios.add(meli);
+        List<Integer> elementos = new ArrayList<>();
+        elementos.add(12);
+        elementos.add(17);
+        elementos.add(22);
+        elementos.add(27);
 
-        List<Double> valores = new ArrayList<>();
-        valores.add(5.2);
-        valores.add(10.1);
-        valores.add(7.5);
-        valores.add(7.2);
+        List<String> etiquetas = new ArrayList<>();
+        etiquetas.add("1");
+        etiquetas.add("2");
+        etiquetas.add("3");
+        etiquetas.add("4");
 
-        Barras barras = new Barras(valores, usuarios);
-
+        Barras barras = new Barras(elementos, etiquetas);
         try
         {
-            barras.createChart(chart, null, "getNombre");
-        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException  e)
+            barras.createChart(chart, null, null);
+        } catch (NoSuchMethodException e)
         {
             e.printStackTrace();
-        } 
+        } catch (IllegalAccessException e)
+        {
+            e.printStackTrace();
+        } catch (InvocationTargetException e)
+        {
+            e.printStackTrace();
+        }
     }
 }

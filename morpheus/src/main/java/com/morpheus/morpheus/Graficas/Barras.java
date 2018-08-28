@@ -44,7 +44,7 @@ public class Barras extends Grafica implements IChart<BarChart>
         {
             if(!Objeto.verificarInstanciaObjeto(getValues().get(0), "Integer") && !Objeto.verificarInstanciaObjeto(getValues().get(0), "Double") &&
                     !Objeto.verificarInstanciaObjeto(getValues().get(0), "Float"))
-                throw new GraficaException("Debe pasar un valor a nameMethodValue");
+                throw new GraficaException("Los valores de la lista de valores no son correctos");
             else
                 isValuePrimitive = true;
         }
@@ -52,7 +52,7 @@ public class Barras extends Grafica implements IChart<BarChart>
         if(nameMethodLabel == null || nameMethodLabel.equals(""))
         {
             if(!Objeto.verificarInstanciaObjeto(getLabels().get(0), "String"))
-                throw new GraficaException("Debe pasar un valor a nameMethodLabel");
+                throw new GraficaException("Los valores de la lista de etiquetas no son correctos");
             else
                 isLabelString = true;
         }
@@ -97,7 +97,15 @@ public class Barras extends Grafica implements IChart<BarChart>
     {
         comprobacionDeDatos();
 
+        //Verifica que las listas puedan ser usadas para grafica
+        if(!Objeto.verificarInstanciaObjeto(getValues().get(0), "Integer") && !Objeto.verificarInstanciaObjeto(getValues().get(0), "Double") &&
+                !Objeto.verificarInstanciaObjeto(getValues().get(0), "Float"))
+            throw new GraficaException("Coloque valores numéricos para poder graficar");
 
+        if(!Objeto.verificarInstanciaObjeto(getLabels().get(0), "String"))
+            throw new GraficaException("Debe pasar un valor a nameMethodLabel");
+
+        drawChart(chart, getValues(), (List<String>)getLabels());
     }
 
     @Override
