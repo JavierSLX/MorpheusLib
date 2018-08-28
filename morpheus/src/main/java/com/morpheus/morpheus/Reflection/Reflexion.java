@@ -1,5 +1,6 @@
-package com.morpheus.morpheus.Herramientas;
+package com.morpheus.morpheus.Reflection;
 
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.List;
 
@@ -9,37 +10,20 @@ import java.util.List;
 
 public class Reflexion
 {
-    private Object object;
-
-    public Reflexion(Object object)
-    {
-        this.object = object;
-    }
-
-    public Object getObject()
-    {
-        return object;
-    }
-
-    public void setObject(Object object)
-    {
-        this.object = object;
-    }
-
     //Obtiene la clase de la que está instanciado el objeto
-    public Class getClassObject()
+    public Class getClassObject(Object object)
     {
         return object.getClass();
     }
 
     //Obtiene el nombre de la clase de la que está instanciado el objeto
-    public String getInstanceObject()
+    public String getInstanceObject(Object object)
     {
-        return getClassObject().getName();
+        return getClassObject(object).getName();
     }
 
     //Obtiene el valor de un metodo que contiene ese objeto
-    public Object methodValue(String nameMethod, Class[] parametersMethod, Object[] parametersValues) throws Exception
+    public Object methodValue(Object object, String nameMethod, Class[] parametersMethod, Object[] parametersValues) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException
     {
         Method method;
 

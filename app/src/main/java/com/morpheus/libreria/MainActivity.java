@@ -5,10 +5,11 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.morpheus.morpheus.Graficas.Barras;
-import com.morpheus.morpheus.Herramientas.Reflexion;
-import com.morpheus.morpheus.WebService.Peticion;
+import com.morpheus.morpheus.Reflection.Reflexion;
+import com.morpheus.morpheus.Reflection.Tools;
 
+import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity
@@ -20,17 +21,23 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Reflexion reflexion = new Reflexion(new Usuario(1, "Javier Serrano", 30, "4612578406"));
+        Usuario usuario = new Usuario(1, "Javier Serrano", 30, "4612578406");
+        List<Usuario> usuarios = new ArrayList<>();
+        usuarios.add(usuario);
+
+        List<String> lista = null;
         try
         {
-            String nombre = (String)reflexion.methodValue("getNombre", null, null);
-            Log.i("reflexion", nombre);
-
-            reflexion.methodValue("setEdad", new Class[]{int.class}, new Object[]{31});
-            int edad = (int)reflexion.methodValue("getEdad", null, null);
-            Log.i("reflexion", String.valueOf(edad));
-
-        } catch (Exception e)
+            lista = Tools.getListString(usuarios, "getNombres");
+            Toast.makeText(this, lista.get(0), Toast.LENGTH_SHORT).show();
+        } catch (NoSuchMethodException e)
+        {
+            e.printStackTrace();
+            Toast.makeText(this, "No se encontró el método", Toast.LENGTH_SHORT).show();
+        } catch (IllegalAccessException e)
+        {
+            e.printStackTrace();
+        } catch (InvocationTargetException e)
         {
             e.printStackTrace();
         }

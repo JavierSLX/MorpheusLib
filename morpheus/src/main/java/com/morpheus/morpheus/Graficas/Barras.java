@@ -1,5 +1,7 @@
 package com.morpheus.morpheus.Graficas;
 
+import com.github.mikephil.charting.charts.BarChart;
+
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,36 +10,23 @@ import java.util.List;
  * Created by Morpheus on 27/08/2018.
  */
 
-public class Barras
+public class Barras extends Grafica implements IChart<BarChart>
 {
-    private Object object;
 
-    public Barras(Object object)
+    public Barras(List<?> values, List<?> labels)
     {
-        this.object = object;
+        super(values, labels);
     }
 
-    public String tipoObjeto()
+    @Override
+    public BarChart createChart(String nameMethodValue, String nameMethodLabel)
     {
-        return object.getClass().getName();
+        return null;
     }
 
-    public List<String> nombresMetodos()
+    @Override
+    public BarChart createChart()
     {
-        Method[] methods = object.getClass().getDeclaredMethods();
-        List<String> lista = new ArrayList<>();
-        for(Method method : methods)
-            lista.add(method.getName());
-
-        return lista;
-    }
-
-    public String obtenerCadenaNombre() throws Exception
-    {
-        //Si no recibe elementos no se le definen
-        Method getNombre = object.getClass().getDeclaredMethod("getNombre");
-
-        //Se le pasan los elementos
-        return (String)getNombre.invoke(object);
+        return null;
     }
 }
