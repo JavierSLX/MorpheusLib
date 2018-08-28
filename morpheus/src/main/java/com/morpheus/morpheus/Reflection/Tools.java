@@ -11,30 +11,14 @@ import java.util.List;
 
 public abstract class Tools
 {
-    //Metodo que regresa una lista de strings a partir de una lista de objetos y el nombre de su metodo
-    public static List<String> getListString(List<?> values, String nameMethodGet) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException
+    //Metodo que regresa una lista de objetos a partir de una lista de objetos que los contiene y el nombre de su metodo
+    public static List<?> getListObjects(List<?> values, String nameMethodGet) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException
     {
-        List<String> lista = new ArrayList<>();
+        List<Object> lista = new ArrayList<>();
 
         Object object = values.get(0);
-        lista.add((String)Reflexion.getMethodValue(object, nameMethodGet, null, null));
+        lista.add(Reflexion.getMethodValue(object, nameMethodGet, null, null));
 
         return lista;
-    }
-
-    //Permite verificar si el metodo existe dentro de los metodos instanciados del objeto
-    public static boolean verificarMetodoInstanciado(Method[] methods, String nameMethod)
-    {
-        boolean verificado = false;
-        for(Method method : methods)
-        {
-            if(method.getName().equals(nameMethod))
-            {
-                verificado = true;
-                break;
-            }
-        }
-
-        return verificado;
     }
 }

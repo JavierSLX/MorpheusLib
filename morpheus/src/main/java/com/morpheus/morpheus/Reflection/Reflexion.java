@@ -15,10 +15,16 @@ public abstract class Reflexion
         return object.getClass();
     }
 
-    //Obtiene el nombre de la clase de la que está instanciado el objeto
+    //Obtiene el nombre de la clase de la que está instanciado el objeto (con los paquetes que la contienen)
     public static String getInstanceClassName(Object object)
     {
         return getInstanceClass(object).getName();
+    }
+
+    //Obtiene el nombre de la clase de la que está instanciado el objeto (solo nombre simple)
+    public static String getInstanceClassSimpleName(Object object)
+    {
+        return getInstanceClass(object).getSimpleName();
     }
 
     //Obtiene los metodos de un objeto instanciado

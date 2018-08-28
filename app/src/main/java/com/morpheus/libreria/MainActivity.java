@@ -26,13 +26,20 @@ public class MainActivity extends AppCompatActivity
         Usuario javier = new Usuario(1, "Javier Serrano", 30, "4612578406");
         Usuario meli = new Usuario(2, "Melissa", 23, "Nada");
         Cliente conocido = new Cliente(1, "Estandar", "estandar@estandar.com");
+        int valor = 10;
+        Integer i = 9;
+        Double d = 2d;
+        float f = 5f;
 
         List<Object> usuarios = new ArrayList<>();
         usuarios.add(javier);
         usuarios.add(conocido);
         usuarios.add(meli);
+        usuarios.add("Hola");
+        usuarios.add(valor);
+        usuarios.add(d);
+        usuarios.add(f);
 
-        Method[] methods = Reflexion.getMethods(javier);
-        Toast.makeText(this, "" + Tools.verificarMetodoInstanciado(methods, "getNombres"), Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, Reflexion.getInstanceClassSimpleName(i), Toast.LENGTH_SHORT).show();
     }
 }
