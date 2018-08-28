@@ -10,6 +10,7 @@ import com.morpheus.morpheus.Reflection.Reflexion;
 import com.morpheus.morpheus.Reflection.Tools;
 
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,9 +29,10 @@ public class MainActivity extends AppCompatActivity
 
         List<Object> usuarios = new ArrayList<>();
         usuarios.add(javier);
-        //usuarios.add(conocido);
+        usuarios.add(conocido);
         usuarios.add(meli);
 
-        Toast.makeText(this, "" + Lista.verificacionDeObjetos(usuarios), Toast.LENGTH_SHORT).show();
+        Method[] methods = Reflexion.getMethods(javier);
+        Toast.makeText(this, "" + Tools.verificarMetodoInstanciado(methods, "getNombres"), Toast.LENGTH_SHORT).show();
     }
 }

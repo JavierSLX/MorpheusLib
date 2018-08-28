@@ -1,6 +1,7 @@
 package com.morpheus.morpheus.Reflection;
 
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,8 +17,24 @@ public abstract class Tools
         List<String> lista = new ArrayList<>();
 
         Object object = values.get(0);
-        lista.add((String)Reflexion.methodValue(object, nameMethodGet, null, null));
+        lista.add((String)Reflexion.getMethodValue(object, nameMethodGet, null, null));
 
         return lista;
+    }
+
+    //Permite verificar si el metodo existe dentro de los metodos instanciados del objeto
+    public static boolean verificarMetodoInstanciado(Method[] methods, String nameMethod)
+    {
+        boolean verificado = false;
+        for(Method method : methods)
+        {
+            if(method.getName().equals(nameMethod))
+            {
+                verificado = true;
+                break;
+            }
+        }
+
+        return verificado;
     }
 }

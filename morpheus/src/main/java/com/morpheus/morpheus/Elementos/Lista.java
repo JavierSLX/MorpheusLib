@@ -14,11 +14,11 @@ public abstract class Lista
     public static boolean verificacionDeObjetos(List<?> elements)
     {
         boolean verificacion = true;
-        Class clase = Reflexion.getClassObject(elements.get(0));
+        Class clase = Reflexion.getInstanceClass(elements.get(0));
 
         for(int i = 1; i < elements.size(); i++)
         {
-            if(!Reflexion.getClassObject(elements.get(i)).equals(clase))
+            if(!Reflexion.getInstanceClass(elements.get(i)).equals(clase))
             {
                 verificacion = false;
                 break;
