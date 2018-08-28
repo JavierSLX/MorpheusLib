@@ -2,6 +2,7 @@ package com.morpheus.morpheus.Graficas;
 
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
+import com.morpheus.morpheus.Elementos.Lista;
 
 import java.text.DecimalFormat;
 import java.util.List;
@@ -39,6 +40,17 @@ public abstract class Grafica
     public void setLabels(List<?> labels)
     {
         this.labels = labels;
+    }
+
+    protected void comprobacionDeDatos()
+    {
+        //Verifica que todos los objetos sean del mismo tipo
+        if(!Lista.verificacionDeObjetos(getValues()) || !Lista.verificacionDeObjetos(getLabels()))
+            throw new RuntimeException("Los objetos de la lista deben de ser de la misma clase instanciada");
+
+        //Verifica que las dos listas sean del mismo tamaño
+        if(getValues().size() != getLabels().size())
+            throw new RuntimeException("Las listas deben de ser del mismo tamaño");
     }
 
     //Clase que le da formato a las etiquetas

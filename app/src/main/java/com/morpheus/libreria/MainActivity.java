@@ -5,7 +5,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.github.mikephil.charting.charts.BarChart;
 import com.morpheus.morpheus.Elementos.Lista;
+import com.morpheus.morpheus.Graficas.Barras;
 import com.morpheus.morpheus.Reflection.Reflexion;
 import com.morpheus.morpheus.Reflection.Tools;
 
@@ -23,23 +25,25 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        BarChart chart = (BarChart)findViewById(R.id.grafica);
+
         Usuario javier = new Usuario(1, "Javier Serrano", 30, "4612578406");
         Usuario meli = new Usuario(2, "Melissa", 23, "Nada");
-        Cliente conocido = new Cliente(1, "Estandar", "estandar@estandar.com");
-        int valor = 10;
-        Integer i = 9;
-        Double d = 2d;
-        float f = 5f;
+        Usuario conocido = new Usuario(3, "Estandar", 25, "estandar@estandar.com");
 
-        List<Object> usuarios = new ArrayList<>();
+        List<Usuario> usuarios = new ArrayList<>();
         usuarios.add(javier);
         usuarios.add(conocido);
         usuarios.add(meli);
-        usuarios.add("Hola");
-        usuarios.add(valor);
-        usuarios.add(d);
-        usuarios.add(f);
 
-        Toast.makeText(this, Reflexion.getInstanceClassSimpleName(i), Toast.LENGTH_SHORT).show();
+        Barras barras = new Barras(usuarios, usuarios);
+
+        try
+        {
+            barras.createChart(chart, "getEdad", "getNombre");
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+        }
     }
 }

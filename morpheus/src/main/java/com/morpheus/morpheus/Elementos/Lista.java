@@ -2,6 +2,8 @@ package com.morpheus.morpheus.Elementos;
 
 import com.morpheus.morpheus.Reflection.Reflexion;
 
+import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -26,5 +28,16 @@ public abstract class Lista
         }
 
         return verificacion;
+    }
+
+    //Metodo que regresa una lista de objetos a partir de una lista de objetos que los contiene y el nombre de su metodo
+    public static List<Object> getListObjects(List<?> values, String nameMethodGet) throws Exception
+    {
+        List<Object> lista = new ArrayList<>();
+
+        for(Object object : values)
+            lista.add(Reflexion.getMethodValue(object, nameMethodGet, null, null));
+
+        return lista;
     }
 }

@@ -12,7 +12,7 @@ import java.util.List;
 public abstract class Tools
 {
     //Metodo que regresa una lista de objetos a partir de una lista de objetos que los contiene y el nombre de su metodo
-    public static List<?> getListObjects(List<?> values, String nameMethodGet) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException
+    public static List<?> getListObjects(List<?> values, String nameMethodGet) throws Exception
     {
         List<Object> lista = new ArrayList<>();
 
