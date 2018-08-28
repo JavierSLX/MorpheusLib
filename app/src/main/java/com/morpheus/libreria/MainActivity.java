@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.morpheus.morpheus.Elementos.Lista;
 import com.morpheus.morpheus.Reflection.Reflexion;
 import com.morpheus.morpheus.Reflection.Tools;
 
@@ -21,25 +22,15 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Usuario usuario = new Usuario(1, "Javier Serrano", 30, "4612578406");
-        List<Usuario> usuarios = new ArrayList<>();
-        usuarios.add(usuario);
+        Usuario javier = new Usuario(1, "Javier Serrano", 30, "4612578406");
+        Usuario meli = new Usuario(2, "Melissa", 23, "Nada");
+        Cliente conocido = new Cliente(1, "Estandar", "estandar@estandar.com");
 
-        List<String> lista = null;
-        try
-        {
-            lista = Tools.getListString(usuarios, "getNombres");
-            Toast.makeText(this, lista.get(0), Toast.LENGTH_SHORT).show();
-        } catch (NoSuchMethodException e)
-        {
-            e.printStackTrace();
-            Toast.makeText(this, "No se encontró el método", Toast.LENGTH_SHORT).show();
-        } catch (IllegalAccessException e)
-        {
-            e.printStackTrace();
-        } catch (InvocationTargetException e)
-        {
-            e.printStackTrace();
-        }
+        List<Object> usuarios = new ArrayList<>();
+        usuarios.add(javier);
+        //usuarios.add(conocido);
+        usuarios.add(meli);
+
+        Toast.makeText(this, "" + Lista.verificacionDeObjetos(usuarios), Toast.LENGTH_SHORT).show();
     }
 }

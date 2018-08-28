@@ -21,6 +21,7 @@ public class Barras extends Grafica implements IChart<BarChart>
     @Override
     public BarChart createChart(String nameMethodValue, String nameMethodLabel)
     {
+        //Verifica que todos los objetos sean del mismo tipo
         return null;
     }
 

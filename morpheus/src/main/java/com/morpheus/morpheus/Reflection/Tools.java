@@ -14,10 +14,9 @@ public abstract class Tools
     public static List<String> getListString(List<?> values, String nameMethodGet) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException
     {
         List<String> lista = new ArrayList<>();
-        Reflexion reflexion = new Reflexion();
 
         Object object = values.get(0);
-        lista.add((String)reflexion.methodValue(object, nameMethodGet, null, null));
+        lista.add((String)Reflexion.methodValue(object, nameMethodGet, null, null));
 
         return lista;
     }

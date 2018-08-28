@@ -8,22 +8,22 @@ import java.util.List;
  * Created by Morpheus on 27/08/2018.
  */
 
-public class Reflexion
+public abstract class Reflexion
 {
     //Obtiene la clase de la que está instanciado el objeto
-    public Class getClassObject(Object object)
+    public static Class getClassObject(Object object)
     {
         return object.getClass();
     }
 
     //Obtiene el nombre de la clase de la que está instanciado el objeto
-    public String getInstanceObject(Object object)
+    public static String getInstanceObject(Object object)
     {
         return getClassObject(object).getName();
     }
 
     //Obtiene el valor de un metodo que contiene ese objeto
-    public Object methodValue(Object object, String nameMethod, Class[] parametersMethod, Object[] parametersValues) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException
+    public static Object methodValue(Object object, String nameMethod, Class[] parametersMethod, Object[] parametersValues) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException
     {
         Method method;
 
@@ -41,13 +41,13 @@ public class Reflexion
     }
 
     //Obtiene los parametros de un metodo para funcionar
-    public Class[] getParametersMethod(Method method)
+    public static Class[] getParametersMethod(Method method)
     {
         return method.getParameterTypes();
     }
 
     //Obtiene el tipo de dato que regresa un elemento
-    public Class getReturnTypeMethod(Method method)
+    public static Class getReturnTypeMethod(Method method)
     {
         return method.getReturnType();
     }
