@@ -31,7 +31,7 @@ public abstract class Lista
     }
 
     //Metodo que regresa una lista de objetos a partir de una lista de objetos que los contiene y el nombre de su metodo
-    public static List<Object> getListObjects(List<?> values, String nameMethodGet) throws Exception
+    public static List<Object> getListObjects(List<?> values, String nameMethodGet) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException
     {
         List<Object> lista = new ArrayList<>();
 

@@ -1,5 +1,7 @@
 package com.morpheus.morpheus.Graficas;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
@@ -10,6 +12,6 @@ import java.util.List;
 public interface IChart<T>
 {
     void createChart(T chart, String nameMethodValue, String nameMethodLabel) throws Exception;
-    void createChart(T chart);
+    void createChart(T chart) throws Exception;
     void drawChart(T chart, List<?> values, List<String> labels);
 }

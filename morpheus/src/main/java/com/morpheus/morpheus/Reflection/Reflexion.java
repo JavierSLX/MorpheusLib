@@ -34,7 +34,7 @@ public abstract class Reflexion
     }
 
     //Obtiene el valor de un metodo que contiene ese objeto
-    public static Object getMethodValue(Object object, String nameMethod, Class[] parametersMethod, Object[] parametersValues) throws Exception
+    public static Object getMethodValue(Object object, String nameMethod, Class[] parametersMethod, Object[] parametersValues) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException
     {
         Method method;
 
