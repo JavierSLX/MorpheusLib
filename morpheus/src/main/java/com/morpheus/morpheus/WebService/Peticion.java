@@ -27,7 +27,7 @@ public class Peticion
     }
 
     //Clase que contiene las peticiones GET
-    public class GET
+    public static class GET
     {
         private String url;
         private Context context;

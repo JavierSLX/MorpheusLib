@@ -11,7 +11,7 @@ import java.util.List;
 
 public interface IChart<T>
 {
-    void createChart(T chart, String nameMethodValue, String nameMethodLabel) throws Exception;
-    void createChart(T chart) throws Exception;
+    void createChart(T chart, String nameMethodValue, String nameMethodLabel) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException;
+    void createChart(T chart);
     void drawChart(T chart, List<?> values, List<String> labels);
 }

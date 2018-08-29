@@ -122,7 +122,7 @@ public class Barras extends Grafica implements IChart<BarChart>
         set.setColors(ColorTemplate.MATERIAL_COLORS);
 
         BarData data = new BarData(set);
-        data.setBarWidth(0.5f);
+        data.setBarWidth(0.7f);
         data.setValueTextSize(14);
 
         chart.setData(data);
