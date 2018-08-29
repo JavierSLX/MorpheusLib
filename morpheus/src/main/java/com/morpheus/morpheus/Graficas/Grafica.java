@@ -4,8 +4,11 @@ import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.morpheus.morpheus.Elementos.Lista;
 import com.morpheus.morpheus.Excepciones.GraficaException;
+import com.morpheus.morpheus.Reflection.Objeto;
 
+import java.lang.reflect.Type;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -55,6 +58,31 @@ public abstract class Grafica
         //Verifica que las dos listas sean del mismo tamaño
         if(getValues().size() != getLabels().size())
             throw new GraficaException("Las listas deben de ser del mismo tamaño");
+    }
+
+    //Comprueba si los nombres de los metodos existen cuando no son nulos (o en su defecto tienen objetos instanciados del tipo necesario)
+    protected boolean[] comprobacionInstancias(String nameGetValues, String nameGetLabels)
+    {
+        boolean[] instances = new boolean[]{false, false};
+
+        //Verifica si las listas son los valores directos y que los parametros no sean nulos o vacios
+        if(nameGetValues == null || nameGetValues.equals(""))
+        {
+            if(!Objeto.verificarInstanciaObjeto(getValues().get(0), "Integer", "Float", "Double"))
+                throw new GraficaException("Los valores de la lista de valores no son correctos");
+            else
+                instances[0] = true;
+        }
+
+        if(nameGetLabels == null || nameGetLabels.equals(""))
+        {
+            if(!Objeto.verificarInstanciaObjeto(getLabels().get(0), "String"))
+                throw new GraficaException("Los valores de la lista de etiquetas no son correctos");
+            else
+                instances[1] = true;
+        }
+
+        return instances;
     }
 
     //Clase que le da formato a las etiquetas

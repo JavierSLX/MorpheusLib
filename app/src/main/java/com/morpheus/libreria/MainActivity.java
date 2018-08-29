@@ -2,11 +2,14 @@ package com.morpheus.libreria;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.LineChart;
+import com.morpheus.morpheus.Elementos.Lista;
 import com.morpheus.morpheus.Graficas.Barras;
 import com.morpheus.morpheus.Graficas.Lineas;
+import com.morpheus.morpheus.Reflection.Reflexion;
 import com.morpheus.morpheus.WebService.Peticion;
 
 import java.lang.reflect.InvocationTargetException;
@@ -48,7 +51,13 @@ public class MainActivity extends AppCompatActivity
         etiquetas.add("7");
         etiquetas.add("8");
 
-        Lineas lineas = new Lineas(elementos, etiquetas);
-        lineas.createChart(chart);
+        //Lineas lineas = new Lineas(elementos, etiquetas);
+        //lineas.createChart(chart);
+
+        //Toast.makeText(this, "" + Lista.valueMax(elementos), Toast.LENGTH_SHORT).show();
+        List<String> lista = Lista.createList(String.class);
+        lista.add("elemento");
+
+        Toast.makeText(this, Reflexion.getInstanceClassSimpleName(lista.get(0)), Toast.LENGTH_SHORT).show();
     }
 }

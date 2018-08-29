@@ -127,7 +127,7 @@ public class Lineas extends Grafica implements IChart<LineChart>
         chart.setPinchZoom(true);
         chart.setDescription(null);
 
-        LimitLine llAxix = new LimitLine(10, "Index 10");
+        LimitLine llAxix = new LimitLine(10f, "Index 10");
         llAxix.setLineWidth(4f);
         llAxix.enableDashedLine(10f, 10f, 0f);
         llAxix.setLabelPosition(LimitLine.LimitLabelPosition.RIGHT_BOTTOM);
@@ -157,8 +157,8 @@ public class Lineas extends Grafica implements IChart<LineChart>
         leftAxis.setDrawLimitLinesBehindData(true);
         leftAxis.setValueFormatter(new NumberFormatter());
 
-        double max = Lista.valueMax(values);
-        float limite = (float)(max + (max * 0.2f));
+        float max = Lista.valueMax(values);
+        float limite = max + (max * 0.2f);
         leftAxis.setAxisMaximum(limite);
         leftAxis.setAxisMaximum(0);
 

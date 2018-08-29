@@ -17,6 +17,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,30 +35,10 @@ public class Barras extends Grafica implements IChart<BarChart>
     @Override
     public void createChart(@NotNull BarChart chart, String nameMethodValue, String nameMethodLabel) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException
     {
-        boolean isValuePrimitive = false;
-        boolean isLabelString = false;
-
         comprobacionDeDatos();
+        boolean[] instances = comprobacionInstancias(nameMethodValue, nameMethodLabel);
 
-        //Verifica si las listas son los valores directos y que los parametros no sean nulos o vacios
-        if(nameMethodValue == null || nameMethodValue.equals(""))
-        {
-            if(!Objeto.verificarInstanciaObjeto(getValues().get(0), "Integer") && !Objeto.verificarInstanciaObjeto(getValues().get(0), "Double") &&
-                    !Objeto.verificarInstanciaObjeto(getValues().get(0), "Float"))
-                throw new GraficaException("Los valores de la lista de valores no son correctos");
-            else
-                isValuePrimitive = true;
-        }
-
-        if(nameMethodLabel == null || nameMethodLabel.equals(""))
-        {
-            if(!Objeto.verificarInstanciaObjeto(getLabels().get(0), "String"))
-                throw new GraficaException("Los valores de la lista de etiquetas no son correctos");
-            else
-                isLabelString = true;
-        }
-
-        if(isValuePrimitive && isLabelString)
+        if(instances[0] && instances[1])
         {
             createChart(chart);
             return;
@@ -66,7 +47,7 @@ public class Barras extends Grafica implements IChart<BarChart>
         //Saca las listas necesarias
         List<Object> valores;
         //Verifica si los metodos que se le paso existen
-        if(!isValuePrimitive)
+        if(!instances[0])
         {
             if (!Metodo.verificarExistenciaMetodoInstanciado(Reflexion.getMethods(getValues().get(0)), nameMethodValue))
                 throw new GraficaException("El método no existe en los objetos contenidos en la lista");
@@ -78,7 +59,7 @@ public class Barras extends Grafica implements IChart<BarChart>
             valores = (List<Object>)getValues();
 
         List<String> etiquetas;
-        if(!isLabelString)
+        if(!instances[1])
         {
             if (!Metodo.verificarExistenciaMetodoInstanciado(Reflexion.getMethods(getLabels().get(0)), nameMethodLabel))
                 throw new GraficaException("El método no existe en los objetos contenidos en la lista");

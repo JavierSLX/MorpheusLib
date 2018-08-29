@@ -14,6 +14,13 @@ import java.util.List;
 
 public abstract class Lista
 {
+    //Crea una lista del tipo que se le solicite
+    public static <Type> List<Type> createList(Class<Type> typeClass)
+    {
+        List<Type> lista = new ArrayList<>();
+        return lista;
+    }
+
     //Permite checar que todos los elementos de una lista estén instanciados de la misma clase
     public static boolean verificacionDeObjetos(List<?> elements)
     {
@@ -44,19 +51,19 @@ public abstract class Lista
     }
 
     //Metodo que saca el maximo de una lista de elementos
-    public static double valueMax(@NotNull List<?> values)
+    public static float valueMax(@NotNull List<?> values)
     {
         if(values.size() == 0)
             return 0;
 
         Number number = (Number)values.get(0);
-        double valor = number.doubleValue();
+        float valor = number.floatValue();
 
         for(int i = 1; i < values.size(); i++)
         {
             number = (Number)values.get(i);
-            if(valor < number.doubleValue())
-                valor = number.doubleValue();
+            if(valor < number.floatValue())
+                valor = number.floatValue();
         }
 
         return valor;
