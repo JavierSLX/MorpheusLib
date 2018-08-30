@@ -9,7 +9,6 @@ import com.morpheus.morpheus.Reflection.Objeto;
 import com.morpheus.morpheus.Reflection.Reflexion;
 
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Type;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +28,7 @@ public abstract class Grafica
         this.labels = labels;
 
         if(getValues() == null || getLabels() == null)
-            throw new RuntimeException("Los valores nulos en el constructor no son válidos");
+            throw new GraficaException("Los valores nulos en el constructor no son válidos");
     }
 
     public List<?> getValues()

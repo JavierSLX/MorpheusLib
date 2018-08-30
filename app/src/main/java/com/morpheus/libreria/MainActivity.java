@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        BarChart chart = (BarChart) findViewById(R.id.grafica);
+        LineChart chart = (LineChart) findViewById(R.id.grafica);
 
         List<Usuario> usuarios = new ArrayList<>();
         usuarios.add(new Usuario(1, "Javier", 30, "4560"));
@@ -66,7 +66,19 @@ public class MainActivity extends AppCompatActivity
         etiquetas.add("6");
         etiquetas.add("7");
 
-        Barras barras = new Barras(elementos, etiquetas);
-        barras.createChart(chart);
+        Lineas lineas = new Lineas(usuarios, clientes, this);
+        try
+        {
+            lineas.createChart(chart, "getEdad", "getEmail");
+        } catch (NoSuchMethodException e)
+        {
+            e.printStackTrace();
+        } catch (IllegalAccessException e)
+        {
+            e.printStackTrace();
+        } catch (InvocationTargetException e)
+        {
+            e.printStackTrace();
+        }
     }
 }

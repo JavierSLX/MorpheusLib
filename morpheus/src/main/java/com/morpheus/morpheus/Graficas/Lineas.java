@@ -17,11 +17,7 @@ import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.utils.Utils;
 import com.morpheus.morpheus.Elementos.Lista;
-import com.morpheus.morpheus.Excepciones.GraficaException;
 import com.morpheus.morpheus.R;
-import com.morpheus.morpheus.Reflection.Metodo;
-import com.morpheus.morpheus.Reflection.Objeto;
-import com.morpheus.morpheus.Reflection.Reflexion;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -46,60 +42,18 @@ public class Lineas extends Grafica implements IChart<LineChart>
     @Override
     public void createChart(@NotNull LineChart chart, String nameMethodValue, String nameMethodLabel) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException
     {
-        boolean isValuePrimitive = false;
-        boolean isLabelString = false;
-
         comprobacionDeDatos();
+        boolean[] instances = comprobacionInstancias(nameMethodValue, nameMethodLabel);
 
-        //Verifica si las listas son los valores directos y que los parametros no sean nulos o vacios
-        if(nameMethodValue == null || nameMethodValue.equals(""))
-        {
-            if(!Objeto.verificarInstanciaObjeto(getValues().get(0), "Integer") && !Objeto.verificarInstanciaObjeto(getValues().get(0), "Double") &&
-                    !Objeto.verificarInstanciaObjeto(getValues().get(0), "Float"))
-                throw new GraficaException("Los valores de la lista de valores no son correctos");
-            else
-                isValuePrimitive = true;
-        }
-
-        if(nameMethodLabel == null || nameMethodLabel.equals(""))
-        {
-            if(!Objeto.verificarInstanciaObjeto(getLabels().get(0), "String"))
-                throw new GraficaException("Los valores de la lista de etiquetas no son correctos");
-            else
-                isLabelString = true;
-        }
-
-        if(isValuePrimitive && isLabelString)
+        if(instances[0] && instances[1])
         {
             createChart(chart);
             return;
         }
 
         //Saca las listas necesarias
-        List<Object> valores;
-        //Verifica si los metodos que se le paso existen
-        if(!isValuePrimitive)
-        {
-            if (!Metodo.verificarExistenciaMetodoInstanciado(Reflexion.getMethods(getValues().get(0)), nameMethodValue))
-                throw new GraficaException("El método no existe en los objetos contenidos en la lista");
-
-            //Saca la lista
-            valores = Lista.getListObjects(getValues(), nameMethodValue);
-        }
-        else
-            valores = (List<Object>)getValues();
-
-        List<String> etiquetas;
-        if(!isLabelString)
-        {
-            if (!Metodo.verificarExistenciaMetodoInstanciado(Reflexion.getMethods(getLabels().get(0)), nameMethodLabel))
-                throw new GraficaException("El método no existe en los objetos contenidos en la lista");
-
-            //Saca la lista
-            etiquetas = ((List<String>)((Object)Lista.getListObjects(getLabels(), nameMethodLabel)));
-        }
-        else
-            etiquetas = (List<String>)(getLabels());
+        List<Object> valores = getListChart(Object.class, instances[0], getValues(), nameMethodValue);
+        List<String> etiquetas = getListChart(String.class, instances[1], getLabels(), nameMethodLabel);
 
         drawChart(chart, valores, etiquetas);
     }
@@ -108,14 +62,7 @@ public class Lineas extends Grafica implements IChart<LineChart>
     public void createChart(@NotNull LineChart chart)
     {
         comprobacionDeDatos();
-
-        //Verifica que las listas puedan ser usadas para grafica
-        if(!Objeto.verificarInstanciaObjeto(getValues().get(0), "Integer") && !Objeto.verificarInstanciaObjeto(getValues().get(0), "Double") &&
-                !Objeto.verificarInstanciaObjeto(getValues().get(0), "Float"))
-            throw new GraficaException("Coloque valores numéricos para poder graficar");
-
-        if(!Objeto.verificarInstanciaObjeto(getLabels().get(0), "String"))
-            throw new GraficaException("Debe pasar un valor a nameMethodLabel");
+        comprobacionInstancias();
 
         drawChart(chart, getValues(), (List<String>)getLabels());
     }
@@ -166,7 +113,6 @@ public class Lineas extends Grafica implements IChart<LineChart>
         //Saca el valor maximo mas 20%
         float max = Lista.valueMax(values);
         float limite = max + (max * 0.2f);
-        Toast.makeText(context, max + " " + limite, Toast.LENGTH_SHORT).show();
         leftAxis.setAxisMaximum(limite);
         leftAxis.setAxisMinimum(0);
 

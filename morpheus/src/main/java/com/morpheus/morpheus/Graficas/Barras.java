@@ -7,17 +7,10 @@ import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.utils.ColorTemplate;
-import com.morpheus.morpheus.Elementos.Lista;
-import com.morpheus.morpheus.Excepciones.GraficaException;
-import com.morpheus.morpheus.Reflection.Metodo;
-import com.morpheus.morpheus.Reflection.Objeto;
-import com.morpheus.morpheus.Reflection.Reflexion;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
