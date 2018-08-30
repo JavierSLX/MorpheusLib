@@ -100,7 +100,7 @@ public abstract class Grafica
     //Obtiene la lista de elementos con los parametros necesarios en la grafica
     protected <Type> List<Type> getListChart(Class<Type> typeClass, boolean isTrueParameter, List<?> list, String nameGetMethod) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException
     {
-        List<Type> valores = new ArrayList<>();
+        List<Type> valores;
 
         //Verifica si los metodos que se le paso existen
         if(!isTrueParameter)
