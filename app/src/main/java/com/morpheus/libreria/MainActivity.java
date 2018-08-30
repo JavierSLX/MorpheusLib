@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        LineChart chart = (LineChart) findViewById(R.id.grafica);
+        BarChart chart = (BarChart) findViewById(R.id.grafica);
 
         List<Integer> elementos = new ArrayList<>();
         elementos.add(12);
@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity
         etiquetas.add("7");
         etiquetas.add("8");
 
-        Lineas lineas = new Lineas(elementos, etiquetas, this);
-        lineas.createChart(chart);
+        Barras barras = new Barras(elementos, etiquetas);
+        barras.createChart(chart);
     }
 }

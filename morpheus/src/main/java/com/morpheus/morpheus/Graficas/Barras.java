@@ -100,7 +100,7 @@ public class Barras extends Grafica implements IChart<BarChart>
         BarDataSet set = new BarDataSet(entries, "");
 
         //Los colores a usar
-        set.setColors(ColorTemplate.MATERIAL_COLORS);
+        set.setColors(ColorTemplate.COLORFUL_COLORS);
 
         BarData data = new BarData(set);
         data.setBarWidth(0.7f);
