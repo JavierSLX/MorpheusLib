@@ -45,30 +45,8 @@ public class Barras extends Grafica implements IChart<BarChart>
         }
 
         //Saca las listas necesarias
-        List<Object> valores;
-        //Verifica si los metodos que se le paso existen
-        if(!instances[0])
-        {
-            if (!Metodo.verificarExistenciaMetodoInstanciado(Reflexion.getMethods(getValues().get(0)), nameMethodValue))
-                throw new GraficaException("El método no existe en los objetos contenidos en la lista");
-
-            //Saca la lista
-            valores = Lista.getListObjects(getValues(), nameMethodValue);
-        }
-        else
-            valores = (List<Object>)getValues();
-
-        List<String> etiquetas;
-        if(!instances[1])
-        {
-            if (!Metodo.verificarExistenciaMetodoInstanciado(Reflexion.getMethods(getLabels().get(0)), nameMethodLabel))
-                throw new GraficaException("El método no existe en los objetos contenidos en la lista");
-
-            //Saca la lista
-            etiquetas = ((List<String>)((Object)Lista.getListObjects(getLabels(), nameMethodLabel)));
-        }
-        else
-            etiquetas = (List<String>)(getLabels());
+        List<Object> valores = getListChart(Object.class, instances[0], getValues(), nameMethodValue);
+        List<String> etiquetas = getListChart(String.class, instances[1], getLabels(), nameMethodLabel);
 
         drawChart(chart, valores, etiquetas);
     }
@@ -77,14 +55,7 @@ public class Barras extends Grafica implements IChart<BarChart>
     public void createChart(@NotNull BarChart chart)
     {
         comprobacionDeDatos();
-
-        //Verifica que las listas puedan ser usadas para grafica
-        if(!Objeto.verificarInstanciaObjeto(getValues().get(0), "Integer") && !Objeto.verificarInstanciaObjeto(getValues().get(0), "Double") &&
-                !Objeto.verificarInstanciaObjeto(getValues().get(0), "Float"))
-            throw new GraficaException("Coloque valores numéricos para poder graficar");
-
-        if(!Objeto.verificarInstanciaObjeto(getLabels().get(0), "String"))
-            throw new GraficaException("Debe pasar un valor a nameMethodLabel");
+        comprobacionInstancias();
 
         drawChart(chart, getValues(), (List<String>)getLabels());
     }

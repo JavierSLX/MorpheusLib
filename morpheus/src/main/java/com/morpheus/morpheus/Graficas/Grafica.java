@@ -4,8 +4,11 @@ import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.morpheus.morpheus.Elementos.Lista;
 import com.morpheus.morpheus.Excepciones.GraficaException;
+import com.morpheus.morpheus.Reflection.Metodo;
 import com.morpheus.morpheus.Reflection.Objeto;
+import com.morpheus.morpheus.Reflection.Reflexion;
 
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Type;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -83,6 +86,36 @@ public abstract class Grafica
         }
 
         return instances;
+    }
+
+    protected void comprobacionInstancias()
+    {
+        //Verifica que las listas puedan ser usadas para grafica
+        if(!Objeto.verificarInstanciaObjeto(getValues().get(0), "Integer", "Float", "Double"))
+            throw new GraficaException("Coloque valores numéricos para poder graficar");
+
+        if(!Objeto.verificarInstanciaObjeto(getLabels().get(0), "String"))
+            throw new GraficaException("Debe pasar un valor a nameMethodLabel");
+    }
+
+    //Obtiene la lista de elementos con los parametros necesarios en la grafica
+    protected <Type> List<Type> getListChart(Class<Type> typeClass, boolean isTrueParameter, List<?> list, String nameGetMethod) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException
+    {
+        List<Type> valores = new ArrayList<>();
+
+        //Verifica si los metodos que se le paso existen
+        if(!isTrueParameter)
+        {
+            if (!Metodo.verificarExistenciaMetodoInstanciado(Reflexion.getMethods(list.get(0)), nameGetMethod))
+                throw new GraficaException("El método no existe en los objetos contenidos en la lista");
+
+            //Saca la lista
+            valores = (List<Type>) Lista.getListObjects(Object.class, list, nameGetMethod);
+        }
+        else
+            valores = (List<Type>) list;
+
+        return valores;
     }
 
     //Clase que le da formato a las etiquetas

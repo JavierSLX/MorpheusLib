@@ -30,6 +30,24 @@ public class MainActivity extends AppCompatActivity
 
         BarChart chart = (BarChart) findViewById(R.id.grafica);
 
+        List<Usuario> usuarios = new ArrayList<>();
+        usuarios.add(new Usuario(1, "Javier", 30, "4560"));
+        usuarios.add(new Usuario(2, "Zus", 26, "4561"));
+        usuarios.add(new Usuario(3, "Fabi", 23, "4562"));
+        usuarios.add(new Usuario(4, "Adii", 22, "4563"));
+        usuarios.add(new Usuario(5, "Meli", 25, "4564"));
+        usuarios.add(new Usuario(6, "Jesús", 26, "4565"));
+        usuarios.add(new Usuario(7, "Angel", 29, "4566"));
+
+        List<Cliente> clientes = new ArrayList<>();
+        clientes.add(new Cliente(1, "Javier", "JR"));
+        clientes.add(new Cliente(2, "Zus", "ZS"));
+        clientes.add(new Cliente(3, "Fabi", "FI"));
+        clientes.add(new Cliente(4, "Adii", "AI"));
+        clientes.add(new Cliente(5, "Meli", "MI"));
+        clientes.add(new Cliente(6, "Jesus", "JS"));
+        clientes.add(new Cliente(7, "Angel", "AL"));
+
         List<Integer> elementos = new ArrayList<>();
         elementos.add(12);
         elementos.add(5);
@@ -38,7 +56,6 @@ public class MainActivity extends AppCompatActivity
         elementos.add(33);
         elementos.add(9);
         elementos.add(109);
-        elementos.add(11);
 
         List<String> etiquetas = new ArrayList<>();
         etiquetas.add("1");
@@ -48,7 +65,6 @@ public class MainActivity extends AppCompatActivity
         etiquetas.add("5");
         etiquetas.add("6");
         etiquetas.add("7");
-        etiquetas.add("8");
 
         Barras barras = new Barras(elementos, etiquetas);
         barras.createChart(chart);

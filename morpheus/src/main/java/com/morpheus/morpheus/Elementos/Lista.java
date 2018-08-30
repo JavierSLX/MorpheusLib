@@ -50,6 +50,16 @@ public abstract class Lista
         return lista;
     }
 
+    //Saca una lista personalizada dependiendo de la lista de objetos que los contiene y el nombre de su estado
+    public static <Type> List<Type> getListObjects(Class<Type> typeClass, List<?> values, String nameMethodGet) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException
+    {
+        List<Type> lista = new ArrayList<>();
+        for (Object object : values)
+            lista.add((Type)Reflexion.getMethodValue(object, nameMethodGet, null, null));
+
+        return lista;
+    }
+
     //Metodo que saca el maximo de una lista de elementos
     public static float valueMax(@NotNull List<?> values)
     {
