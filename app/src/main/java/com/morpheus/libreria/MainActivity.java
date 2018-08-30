@@ -1,5 +1,6 @@
 package com.morpheus.libreria;
 
+import android.app.ProgressDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,13 +10,18 @@ import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.Entry;
+import com.morpheus.morpheus.Constants;
 import com.morpheus.morpheus.Elementos.Lista;
 import com.morpheus.morpheus.Graficas.Barras;
 import com.morpheus.morpheus.Graficas.Lineas;
 import com.morpheus.morpheus.Graficas.Pastel;
+import com.morpheus.morpheus.Recarga.Recarga;
 import com.morpheus.morpheus.Reflection.Reflexion;
 import com.morpheus.morpheus.Test.TestClass;
+import com.morpheus.morpheus.WebService.OnResultElementListener;
 import com.morpheus.morpheus.WebService.Peticion;
+
+import org.json.JSONObject;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -30,7 +36,7 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        PieChart chart = (PieChart) findViewById(R.id.grafica);
+        /*PieChart chart = (PieChart) findViewById(R.id.grafica);
 
         List<Usuario> usuarios = new ArrayList<>();
         usuarios.add(new Usuario(1, "Javier", 30, "4560"));
@@ -57,7 +63,7 @@ public class MainActivity extends AppCompatActivity
         elementos.add(26);
         elementos.add(33);
         elementos.add(9);
-        elementos.add(109);*/
+        elementos.add(109);
 
         List<String> etiquetas = new ArrayList<>();
         etiquetas.add("1");
@@ -66,9 +72,30 @@ public class MainActivity extends AppCompatActivity
         etiquetas.add("4");
         etiquetas.add("5");
         etiquetas.add("6");
-        etiquetas.add("7");*/
+        etiquetas.add("7");
 
         Pastel pastel = new Pastel(elementos, etiquetas, this);
-        pastel.createChart(chart);
+        pastel.createChart(chart);*/
+
+        final ProgressDialog dialog = new ProgressDialog(this);
+        dialog.setMessage("Espere...");
+        dialog.show();
+        Recarga recarga = new Recarga(this);
+        recarga.realizarRecarga("4661347919", Constants.CLIENTE_RECARGA, 235, new OnResultElementListener<JSONObject>()
+        {
+            @Override
+            public void onSuccess(JSONObject result)
+            {
+                dialog.dismiss();
+                Log.i("recarga", result != null ? result.toString() : "Error conversión JSON");
+            }
+
+            @Override
+            public void onFailed(String message, int code)
+            {
+                dialog.dismiss();
+                Log.i("recarga", code + " " + message);
+            }
+        });
     }
 }
