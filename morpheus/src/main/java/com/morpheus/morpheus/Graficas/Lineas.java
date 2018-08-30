@@ -1,8 +1,10 @@
 package com.morpheus.morpheus.Graficas;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
+import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.Legend;
@@ -13,8 +15,10 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
+import com.github.mikephil.charting.utils.Utils;
 import com.morpheus.morpheus.Elementos.Lista;
 import com.morpheus.morpheus.Excepciones.GraficaException;
+import com.morpheus.morpheus.R;
 import com.morpheus.morpheus.Reflection.Metodo;
 import com.morpheus.morpheus.Reflection.Objeto;
 import com.morpheus.morpheus.Reflection.Reflexion;
@@ -31,10 +35,12 @@ import java.util.List;
 
 public class Lineas extends Grafica implements IChart<LineChart>
 {
+    private Context context;
 
-    public Lineas(@NotNull List<?> values, @NotNull List<?> labels)
+    public Lineas(List<?> values, List<?> labels, Context context)
     {
         super(values, labels);
+        this.context = context;
     }
 
     @Override
@@ -119,7 +125,7 @@ public class Lineas extends Grafica implements IChart<LineChart>
     {
         chart.setDrawGridBackground(false);
         chart.setDescription(null);
-        chart.setNoDataText("No hay elementos suficientes para graficar");
+        chart.setNoDataText("No hay elementos suficientes a graficar");
         chart.setTouchEnabled(true);
 
         chart.setDragEnabled(true);
@@ -127,11 +133,11 @@ public class Lineas extends Grafica implements IChart<LineChart>
         chart.setPinchZoom(true);
         chart.setDescription(null);
 
-        LimitLine llAxix = new LimitLine(10f, "Index 10");
-        llAxix.setLineWidth(4f);
-        llAxix.enableDashedLine(10f, 10f, 0f);
-        llAxix.setLabelPosition(LimitLine.LimitLabelPosition.RIGHT_BOTTOM);
-        llAxix.setTextSize(10f);
+        LimitLine llAxis = new LimitLine(10f, "Index 10");
+        llAxis.setLineWidth(4f);
+        llAxis.enableDashedLine(10f, 10f, 0f);
+        llAxis.setLabelPosition(LimitLine.LimitLabelPosition.RIGHT_BOTTOM);
+        llAxis.setTextSize(10f);
 
         XAxis xAxis = chart.getXAxis();
         xAxis.enableGridDashedLine(10f, 10f, 0f);
@@ -157,10 +163,12 @@ public class Lineas extends Grafica implements IChart<LineChart>
         leftAxis.setDrawLimitLinesBehindData(true);
         leftAxis.setValueFormatter(new NumberFormatter());
 
+        //Saca el valor maximo mas 20%
         float max = Lista.valueMax(values);
         float limite = max + (max * 0.2f);
+        Toast.makeText(context, max + " " + limite, Toast.LENGTH_SHORT).show();
         leftAxis.setAxisMaximum(limite);
-        leftAxis.setAxisMaximum(0);
+        leftAxis.setAxisMinimum(0);
 
         chart.getAxisRight().setEnabled(false);
 
@@ -171,10 +179,7 @@ public class Lineas extends Grafica implements IChart<LineChart>
         //Pasa los datos
         List<Entry> entries = new ArrayList<>();
         for(int i = 0; i < values.size(); i++)
-        {
-            Number number = (Number)values.get(i);
-            entries.add(new Entry(i, number.floatValue()));
-        }
+            entries.add(new Entry(i, ((Number)values.get(i)).floatValue()));
 
         LineDataSet dataSet;
 
@@ -189,12 +194,19 @@ public class Lineas extends Grafica implements IChart<LineChart>
         dataSet.setValueTextSize(9f);
         dataSet.setDrawFilled(true);
 
-        //dataSet.setFillColor(Color.BLACK);
+        //Dependiendo de la version de SDK se le pasa un dato o no
+        if(Utils.getSDKInt() > 18)
+        {
+            Drawable drawable = ContextCompat.getDrawable(context, R.drawable.fade_red);
+            dataSet.setFillDrawable(drawable);
+        }
+        else
+            dataSet.setFillColor(Color.BLACK);
 
-        List<ILineDataSet> lineDataSets = new ArrayList<>();
-        lineDataSets.add(dataSet);
+        List<ILineDataSet> lineDataSet = new ArrayList<>();
+        lineDataSet.add(dataSet);
 
-        LineData data = new LineData(lineDataSets);
+        LineData data = new LineData(lineDataSet);
         chart.setData(data);
 
         chart.animateX(values.size() * 83);
