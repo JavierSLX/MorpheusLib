@@ -7,10 +7,12 @@ import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.Entry;
 import com.morpheus.morpheus.Elementos.Lista;
 import com.morpheus.morpheus.Graficas.Barras;
 import com.morpheus.morpheus.Graficas.Lineas;
+import com.morpheus.morpheus.Graficas.Pastel;
 import com.morpheus.morpheus.Reflection.Reflexion;
 import com.morpheus.morpheus.Test.TestClass;
 import com.morpheus.morpheus.WebService.Peticion;
@@ -28,7 +30,7 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        LineChart chart = (LineChart) findViewById(R.id.grafica);
+        PieChart chart = (PieChart) findViewById(R.id.grafica);
 
         List<Usuario> usuarios = new ArrayList<>();
         usuarios.add(new Usuario(1, "Javier", 30, "4560"));
@@ -51,34 +53,22 @@ public class MainActivity extends AppCompatActivity
         List<Integer> elementos = new ArrayList<>();
         elementos.add(12);
         elementos.add(5);
-        elementos.add(78);
+        /*elementos.add(78);
         elementos.add(26);
         elementos.add(33);
         elementos.add(9);
-        elementos.add(109);
+        elementos.add(109);*/
 
         List<String> etiquetas = new ArrayList<>();
         etiquetas.add("1");
         etiquetas.add("2");
-        etiquetas.add("3");
+        /*etiquetas.add("3");
         etiquetas.add("4");
         etiquetas.add("5");
         etiquetas.add("6");
-        etiquetas.add("7");
+        etiquetas.add("7");*/
 
-        Lineas lineas = new Lineas(usuarios, clientes, this);
-        try
-        {
-            lineas.createChart(chart, "getEdad", "getEmail");
-        } catch (NoSuchMethodException e)
-        {
-            e.printStackTrace();
-        } catch (IllegalAccessException e)
-        {
-            e.printStackTrace();
-        } catch (InvocationTargetException e)
-        {
-            e.printStackTrace();
-        }
+        Pastel pastel = new Pastel(elementos, etiquetas, this);
+        pastel.createChart(chart);
     }
 }
