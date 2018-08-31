@@ -5,9 +5,6 @@ import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 
-import com.morpheus.morpheus.R;
-import com.morpheus.morpheus.WebService.OnResultSimpleListener;
-
 import me.dm7.barcodescanner.zbar.Result;
 import me.dm7.barcodescanner.zbar.ZBarScannerView;
 
