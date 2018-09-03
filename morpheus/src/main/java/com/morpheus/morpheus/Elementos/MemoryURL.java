@@ -14,6 +14,7 @@ public class MemoryURL
 {
     private String file;
     private String directories;
+    private String path;
 
     public MemoryURL(@NotNull String file)
     {
@@ -32,9 +33,14 @@ public class MemoryURL
         directories = "";
     }
 
+    public void setPath(String path)
+    {
+        this.path = path;
+    }
+
     public String getPath()
     {
-        String path = Environment.getExternalStorageDirectory() + "/";
+        path = Environment.getExternalStorageDirectory() + "/";
         path += directories + file;
         return path;
     }
