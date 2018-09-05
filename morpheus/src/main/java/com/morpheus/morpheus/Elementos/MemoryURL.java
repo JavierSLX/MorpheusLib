@@ -4,6 +4,7 @@ import android.os.Environment;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.io.File;
 import java.util.Locale;
 
 /**
@@ -25,7 +26,7 @@ public class MemoryURL
     public void setDirectory(String nameDirectory)
     {
         String cadena = nameDirectory.replace("/", "");
-        directories += String.format(Locale.getDefault(), "%s/", nameDirectory);
+        directories += String.format(Locale.getDefault(), "%s/", cadena);
     }
 
     public void resetDirectories()
@@ -40,7 +41,11 @@ public class MemoryURL
 
     public String getPath()
     {
-        path = Environment.getExternalStorageDirectory() + "/";
+        path = Environment.getExternalStorageDirectory().getPath() + "/";
+        File carpeta = new File(path + directories);
+        if(!carpeta.exists())
+            carpeta.mkdirs();
+
         path += directories + file;
         return path;
     }

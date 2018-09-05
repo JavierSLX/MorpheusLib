@@ -4,6 +4,8 @@ import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Environment;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.morpheus.morpheus.Elementos.MemoryURL;
@@ -74,6 +76,7 @@ public class Excel extends Archivo
     public void abrirExcel()
     {
         Uri uri = Uri.fromFile(file);
+        Log.i("excel", file.getPath());
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.setDataAndType(uri, "application/vnd.ms-excel");
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
