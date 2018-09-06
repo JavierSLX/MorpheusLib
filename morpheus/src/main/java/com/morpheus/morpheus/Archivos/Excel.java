@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Environment;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -15,6 +16,7 @@ import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -38,7 +40,7 @@ public class Excel extends Archivo
         this.context = context;
     }
 
-    public void contenidoExcel(@NotNull String[] titulos, @NotNull Object[][] contenido)
+    public void contenidoExcel(@NotNull String[] titulos, @NonNull Object[][] contenido)
     {
         file = new File(url.getPath());
 
@@ -51,12 +53,23 @@ public class Excel extends Archivo
         HSSFCell cell;
         HSSFRow row;
 
-        row = sheet.createRow(1);
+        int n = 1;
+        row = sheet.createRow(n);
         for(int i = 0; i < titulos.length; i++)
         {
             cell = row.createCell(i);
             cell.setCellValue(titulos[i]);
             sheet.setColumnWidth(i, (15 * 500));
+        }
+
+        //Coloca el contenido
+        for (int i = 0; i < contenido.length; i++)
+        {
+            row = sheet.createRow(++n);
+            for(int j = 0; j < contenido[i].length; j++)
+            {
+                cell = row.createCell(j);
+            }
         }
 
         //Pasa la configuracion y el contenido a un archivo Excel
