@@ -59,16 +59,17 @@ public class Excel extends Archivo
         {
             cell = row.createCell(i);
             cell.setCellValue(titulos[i]);
-            sheet.setColumnWidth(i, (15 * 500));
+            sheet.setColumnWidth(i, (titulos.length * 600));
         }
 
         //Coloca el contenido
-        for (int i = 0; i < contenido.length; i++)
+        for (Object[] elemento : contenido)
         {
             row = sheet.createRow(++n);
-            for(int j = 0; j < contenido[i].length; j++)
+            for (int j = 0; j < elemento.length; j++)
             {
                 cell = row.createCell(j);
+                cell.setCellValue((String) elemento[j]);
             }
         }
 
