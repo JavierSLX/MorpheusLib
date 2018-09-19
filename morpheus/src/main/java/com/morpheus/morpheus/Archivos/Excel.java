@@ -4,24 +4,19 @@ import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.widget.Toast;
-
-import com.morpheus.morpheus.Elementos.MemoryURL;
 
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.net.URL;
+import java.net.URI;
 
 /**
  * Created by Morpheus on 31/08/2018.
@@ -29,11 +24,11 @@ import java.net.URL;
 
 public class Excel extends Archivo
 {
-    private MemoryURL url;
+    private URI url;
     private File file;
     private Context context;
 
-    public Excel(@NotNull Context context, @NotNull MemoryURL url)
+    public Excel(@NotNull Context context, @NotNull URI url)
     {
         super();
         this.url = url;
@@ -43,6 +38,19 @@ public class Excel extends Archivo
     public void contenidoExcel(@NotNull String[] titulos, @NonNull Object[][] contenido)
     {
         file = new File(url.getPath());
+
+        StringBuilder cadena = new StringBuilder();
+        String[] carpetas = url.getPath().split("/");
+        for(int i = 0; i < carpetas.length - 1; i++)
+        {
+            cadena.append(carpetas[i]);
+            if(i < carpetas.length - 2)
+                cadena.append("/");
+        }
+
+        File carpeta = new File(cadena.toString());
+        if(!carpeta.exists())
+            carpeta.mkdirs();
 
         //Crea un nuevo libro
         HSSFWorkbook workbook = new HSSFWorkbook();
@@ -122,12 +130,12 @@ public class Excel extends Archivo
         }
     }
 
-    public MemoryURL getUrl()
+    public URI getUrl()
     {
         return url;
     }
 
-    public void setUrl(MemoryURL url)
+    public void setUrl(URI url)
     {
         this.url = url;
     }

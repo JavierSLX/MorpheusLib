@@ -7,24 +7,16 @@ import android.content.pm.PackageManager;
 import android.os.Environment;
 import android.speech.RecognizerIntent;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.github.mikephil.charting.charts.PieChart;
 import com.morpheus.morpheus.Archivos.Excel;
-import com.morpheus.morpheus.Elementos.MemoryURL;
-import com.morpheus.morpheus.Graficas.Pastel;
-import com.morpheus.morpheus.Scanner;
 
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.ArrayList;
+import java.net.URI;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener
@@ -54,35 +46,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         PieChart chart = (PieChart)findViewById(R.id.grafica);*/
 
-        MemoryURL url = new MemoryURL("ejemplo.xml");
-        url.setDirectory("primera");
-        url.setDirectory("segunda");
+        URI uri = URI.create(Environment.getExternalStorageDirectory() + "/excel/helado.xml");
+        Toast.makeText(this, uri.getPath(), Toast.LENGTH_SHORT).show();
 
-        Log.i("excel", url.getPath());
-
-        Excel excel = new Excel(this, url);
+        Excel excel = new Excel(this, uri);
         String contenido[][] = new String[][]{{"1", "2", "3"}, {"4", "5", "6"}, {"7", "8", "9"}};
         excel.contenidoExcel(new String[]{"Primero", "Segundo", "Tercero"}, contenido);
         excel.abrirExcel();
-
-        /*List<Integer> valores = new ArrayList<Integer>();
-        valores.add(23);
-        valores.add(55);
-        valores.add(10);
-        valores.add(67);
-        valores.add(31);
-        valores.add(44);
-
-        List<String> nombres = new ArrayList<>();
-        nombres.add("Juan");
-        nombres.add("David");
-        nombres.add("Rubén");
-        nombres.add("Andrea");
-        nombres.add("Melisa");
-        nombres.add("Esteban");
-
-        Pastel pastel = new Pastel(valores, nombres, this);
-        pastel.createChart(chart);*/
     }
 
     @Override
