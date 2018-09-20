@@ -35,7 +35,7 @@ public class Excel extends Archivo
         this.context = context;
     }
 
-    public void contenidoExcel(@NotNull String[] titulos, @NonNull Object[][] contenido)
+    public File contenidoExcel(@NotNull String[] titulos, @NotNull Object[][] contenido)
     {
         file = new File(url.getPath());
 
@@ -89,10 +89,14 @@ public class Excel extends Archivo
             workbook.write(fileOutputStream);
             fileOutputStream.close();
 
+            return file;
+
         } catch (java.io.IOException e)
         {
             e.printStackTrace();
         }
+
+        return null;
     }
 
     public void abrirExcel()

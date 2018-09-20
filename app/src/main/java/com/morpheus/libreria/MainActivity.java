@@ -15,7 +15,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.morpheus.morpheus.Archivos.Excel;
+import com.morpheus.morpheus.Envios.Whatsapp;
 
+import java.io.File;
 import java.net.URI;
 import java.util.List;
 
@@ -51,8 +53,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         Excel excel = new Excel(this, uri);
         String contenido[][] = new String[][]{{"1", "2", "3"}, {"4", "5", "6"}, {"7", "8", "9"}};
-        excel.contenidoExcel(new String[]{"Primero", "Segundo", "Tercero"}, contenido);
-        excel.abrirExcel();
+        File file = excel.contenidoExcel(new String[]{"Primero", "Segundo", "Tercero"}, contenido);
+        //excel.abrirExcel();
+        Whatsapp whatsapp = new Whatsapp(this);
+        whatsapp.enviarArchivo(file, "application/vnd.ms-excel");
     }
 
     @Override
